@@ -14,23 +14,24 @@ class Scraper:
             request = requests.get(self.home)
             data = json.loads(request.text)
        
-        except:
             
-            print('Something went wrong!')
         
-        full_data = []
+            full_data = []
 
-        for obj in data['near_earth_objects'][self.date_to_search]:
-            asteroid_info = []
-            asteroid_info.append(obj['name'])
-            asteroid_info.append(str(obj['is_potentially_hazardous_asteroid']))
-            asteroid_info.append(str(obj['estimated_diameter']['meters']['estimated_diameter_max']))
-            asteroid_info.append(obj['close_approach_data'][0]['relative_velocity']['kilometers_per_second'])
-            asteroid_info.append(obj['close_approach_data'][0]['miss_distance']['kilometers'])
+            for obj in data['near_earth_objects'][self.date_to_search]:
+                asteroid_info = []
+                asteroid_info.append(obj['name'])
+                asteroid_info.append(str(obj['is_potentially_hazardous_asteroid']))
+                asteroid_info.append(str(obj['estimated_diameter']['meters']['estimated_diameter_max']))
+                asteroid_info.append(obj['close_approach_data'][0]['relative_velocity']['kilometers_per_second'])
+                asteroid_info.append(obj['close_approach_data'][0]['miss_distance']['kilometers'])
 
-            full_data.append(asteroid_info)
+                full_data.append(asteroid_info)
         
-        return full_data
+            return full_data
+
+        except Exception as e:
+            print(e)
 
 
 
